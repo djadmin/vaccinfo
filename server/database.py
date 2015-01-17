@@ -21,7 +21,7 @@ def getVaccines(week):
 
 		vaccines = doc["vaccines"]
 		for vaccine in vaccines:
-			vaccine = json.dumps(vaccine.encode("UTF-8"))
+			vaccine = json.dumps(vaccine)
 			result_entry = {"vaccine": vaccine, "start_week": start_week, "end_week": end_week}
 			result.append(result_entry)
 
@@ -31,7 +31,15 @@ def getVaccines(week):
 def register(phone, dob):
 	#mydob = datetime.datetime.strptime('22081991', '%d%m%Y')
 	data = {"phone": phone, "dob": dob}
-	users.insert(data)
+	if not userExist(phone):
+		users.insert(data)
+
+#Check if user Exist or not
+def userExist(phone):
+	if users.find({"phone": phone}).count():
+		return True
+	else:
+		return False
 
 #returns date of birth of the registered mobile number
 #@return: date
@@ -39,7 +47,10 @@ def getInfo(phone):
 	query = {"phone": phone}
 	projection = {"dob": 1, "_id": 0}
 	cursor = users.find_one(query, projection) #@TODO : Check for more than one entry
-	return (cursor["dob"]).date().strftime('%d/%m/%Y')
+	if cursor["dob"]:
+		dob = datetime.datetime.strptime(cursor["dob"], '%d%m%Y')
+		return str(cursor["dob"])
+	return False
 
 if __name__ == '__main__':
 	pass
