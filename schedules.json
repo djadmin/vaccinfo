@@ -63,7 +63,7 @@
 	    "s": 78,
 	    "e": 78
 	},
-	"vaccines": ["DPT –BOOSTER I","OPV –V"]
+	"vaccines": ["DPT - BOOSTER I","OPV - V"]
 },{
 	"week_range": {
 	    "s": 104,
@@ -75,5 +75,5 @@
 	    "s": 208,
 	    "e": 260
 	},
-	"vaccines": ["DPT BOOSTER – II", "OPV -VI"]
+	"vaccines": ["DPT BOOSTER - II", "OPV -VI"]
 }]
