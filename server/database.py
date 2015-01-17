@@ -8,6 +8,7 @@ schedule = db['schedule']
 users = db['users']
 
 # Return all the vaccines with week range for each
+#@return: list of dictionary
 def getVaccines(week):
 	result = []
 	query = {"week_range.s": {"$lte": week}, "week_range.e": {"$gte": week}}
@@ -26,11 +27,19 @@ def getVaccines(week):
 
 	return str(result)
 
-# It register new user with phone number & date of birth
+# It registers new user with phone number & date of birth
 def register(phone, dob):
 	#mydob = datetime.datetime.strptime('22081991', '%d%m%Y')
 	data = {"phone": phone, "dob": dob}
 	users.insert(data)
+
+#returns date of birth of the registered mobile number
+#@return: date
+def getInfo(phone):
+	query = {"phone": phone}
+	projection = {"dob": 1, "_id": 0}
+	cursor = users.find_one(query, projection) #@TODO : Check for more than one entry
+	return (cursor["dob"]).date().strftime('%d/%m/%Y')
 
 if __name__ == '__main__':
 	pass
