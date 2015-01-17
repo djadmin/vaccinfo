@@ -21,10 +21,6 @@ def getVaccines(week):
 		vaccines = doc["vaccines"]
 		for vaccine in vaccines:
 			vaccine = vaccine.encode("UTF-8")
-			print vaccine
-			print start_week
-			print end_week
-			print "--------"
 			result_entry = {"vaccine": vaccine, "start_week": start_week, "end_week": end_week}
 			result.append(result_entry)
 
