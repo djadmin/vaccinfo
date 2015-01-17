@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-import json
+import json, datetime
 
 client = MongoClient()
 
@@ -25,5 +25,11 @@ def getVaccines(week):
 			result.append(result_entry)
 
 	return result
+
+def register(phone, dob):
+	#mydob = datetime.datetime.strptime('22081991', '%d%m%Y')
+	data = {"phone": phone, "dob": dob}
+	users.insert(data)
+
 if __name__ == '__main__':
 	pass
