@@ -26,7 +26,7 @@ def register():
 	mob = request.args.get('mob')
 	dob = request.args.get('dob')
 	database.register(mob, dob)
-	return getVaccineInfo(dob)
+	return str(getVaccineInfo(dob))
 
 ''' Returns next Vaccination Details '''
 def getVaccineInfo(dob):
