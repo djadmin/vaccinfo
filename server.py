@@ -5,7 +5,7 @@ app = Flask(__name__, static_folder='client', static_url_path='')
 def index():
     return app.send_static_file('index.html')
 
-@app.route('/')
+@app.route('/hello')
 def hello_world():
     return 'Hello World!'
 
