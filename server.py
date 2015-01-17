@@ -1,5 +1,6 @@
 from flask import Flask
 from datetime import datetime
+import math
 app = Flask(__name__, static_folder='client', static_url_path='')
 
 @app.route('/')
@@ -21,9 +22,10 @@ def getNextVaccinationInfo(mobileNo):
 @app.route('/calcWeeks/<strBirthDate>')
 def calcWeeks(strBirthDate):
     date = datetime.strptime(strBirthDate, '%d%m%Y')
-    today = date.today() 
+    today = date.today()
     delta = (today - date)
-    return str(date) + '--' + str(delta)
+    week = int(math.floor(delta.days/7.0))
+    return week
     
 def registerInfant():
     pass

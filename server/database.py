@@ -26,6 +26,7 @@ def getVaccines(week):
 
 	return result
 
+# It register new user with phone number & date of birth
 def register(phone, dob):
 	#mydob = datetime.datetime.strptime('22081991', '%d%m%Y')
 	data = {"phone": phone, "dob": dob}
