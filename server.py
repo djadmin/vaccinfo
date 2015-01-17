@@ -1,13 +1,14 @@
 from flask import Flask
 app = Flask(__name__)
 
-@app.route('/hello')
+@app.route('/')
 def hello_world():
     return 'Hello World!'
 
-@app.route('/getNextVaccinationInfo')
-def getNextVaccinationInfo():
-    return 'Vaccination V1 due on 19-12-2015'
+@app.route('/getNextVaccinationInfo/<mobileNo>')
+def getNextVaccinationInfo(mobileNo):
+    a,d = getDueDate(mobileNo)
+    return 'Vaccination' + a + 'due on ' + d + 'for MobileNumber: ' + mobileNo
 
 def registerInfant():
     pass
@@ -15,5 +16,10 @@ def registerInfant():
 def getInfantInfo():
     raise NotImplementedError
 
+
+'''DB Fetch methods here'''
+def getDueDate(mobileNo):
+    return 'V1','18-12-2015'
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
