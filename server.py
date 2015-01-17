@@ -1,5 +1,6 @@
 from flask import Flask
 from datetime import datetime
+from server import database
 import math
 app = Flask(__name__, static_folder='client', static_url_path='')
 
@@ -25,7 +26,7 @@ def calcWeeks(strBirthDate):
     today = date.today()
     delta = (today - date)
     week = int(math.floor(delta.days/7.0))
-    return week
+    return database.getVaccines(week)
     
 def registerInfant():
     pass

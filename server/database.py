@@ -20,11 +20,11 @@ def getVaccines(week):
 
 		vaccines = doc["vaccines"]
 		for vaccine in vaccines:
-			vaccine = vaccine.encode("UTF-8")
+			vaccine = json.dumps(vaccine.encode("UTF-8"))
 			result_entry = {"vaccine": vaccine, "start_week": start_week, "end_week": end_week}
 			result.append(result_entry)
 
-	return result
+	return str(result)
 
 # It register new user with phone number & date of birth
 def register(phone, dob):
