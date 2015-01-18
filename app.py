@@ -9,8 +9,9 @@ def index():
     return app.send_static_file('index.html')
 
 ''' check user info & return vaccines details if user exists'''
-@app.route('/isRegistered/<phone>')
-def isRegistered(phone):
+@app.route('/isRegistered', methods=["GET"])
+def isRegistered():
+	phone = request.args.get('mob')
 	result = {}
 	registration = database.getInfo(phone)
 	if registration:
@@ -32,8 +33,9 @@ def register():
 		result_str = buildString(vaccines)
 	return str(result_str)
 
-@app.route('/getVaccines/<phone>')
-def getVaccines(phone):
+@app.route('/getVaccines', methods=["GET"])
+def getVaccines():
+	phone = request.args.get('mob')
 	dob = database.getInfo(phone)
 	result_str = ""
 	if dob:
