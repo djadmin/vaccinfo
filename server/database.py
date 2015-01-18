@@ -25,8 +25,7 @@ def getVaccines(week):
 			vaccine = json.dumps(vaccine)
 			result_entry = {"vaccine": vaccine, "start_week": start_week, "end_week": end_week}
 			result.append(result_entry)
-
-	return str(result)
+	return (result)
 
 # It registers new user with phone number & date of birth
 def register(phone, dob):
@@ -49,7 +48,6 @@ def getInfo(phone):
 	projection = {"dob": 1, "_id": 0}
 	cursor = users.find_one(query, projection) #@TODO : Check for more than one entry
 	if cursor and cursor["dob"]:
-		print cursor
 		dob = datetime.datetime.strptime(cursor["dob"], '%d%m%Y')
 		return str(cursor["dob"])
 	return False

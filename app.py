@@ -15,18 +15,39 @@ def isRegistered(phone):
 	registration = database.getInfo(phone)
 	if registration:
 		result["isReg"] = True
-		dob = registration
-		result["details"] = getVaccineInfo(dob) # @param : DOB
+		# result["details"] = getVaccineInfo(dob) # @param : DOB
 	else:
 		result["isReg"] = False
-	return str(json.dumps(result))
+	return str(json.dumps(result["isReg"]))
 
 @app.route('/register', methods=["GET"])
 def register():
 	mob = request.args.get('mob')
 	dob = request.args.get('dob')
 	database.register(mob, dob)
-	return str(getVaccineInfo(dob))
+
+	result_str = ""
+	if dob:
+		vaccines = getVaccineInfo(dob) # @param : DOB
+		result_str = buildString(vaccines)
+	return str(result_str)
+
+@app.route('/getVaccines/<phone>')
+def getVaccines(phone):
+	dob = database.getInfo(phone)
+	result_str = ""
+	if dob:
+		vaccines = getVaccineInfo(dob) # @param : DOB
+		result_str = buildString(vaccines)
+	return result_str
+
+def buildString(arr):
+	res = ""
+	for vaccine in arr:
+		print vaccine
+		name = vaccine["vaccine"]
+		res = res + name + " is due from " + str(vaccine["start_week"]) + " to " + str(vaccine["end_week"]) + " AND "
+	return res
 
 ''' Returns next Vaccination Details '''
 def getVaccineInfo(dob):
@@ -40,36 +61,8 @@ def calcWeeks(strBirthDate):
     week = int(math.floor(delta.days / 7.0))
     return week
 
-# @app.route('/getNextVaccinationInfo/<mobileNo>')
-# def getNextVaccinationInfo(mobileNo):
-#     a,d = getDueDate(mobileNo)
-#     #int_birthDate = 01012015
-#     #str_birthTime = str('01012015')
-#     #date = calculateWeeks(str_birthTime)
-#     return 'Vaccination' + a + 'due on ' + d + 'for MobileNumber: ' + mobileNo
-
-
-# def register():
-#     pass
-
-# def getInfantInfo():
-#     raise NotImplementedError
-
-# def calculateWeeks(str_birthDate):
-#     '''Expected format is DDMMYYYY'''
-#     #int_birthDate = 01012015
-#     #date = datetime(year = int_birthDate[4:8], month = int_birthDate[2:4], day = int_birthDate[0:2])
-#     date = datetime.strptime(str_birthDate, '%d%m%Y') 
-#     return date
-    
-# '''DB Fetch methods here'''
-# def getDueDate(mobileNo):
-# 	dueDate = database.getInfo(mobileNo) # Format - %d%m%Y
-# 	return dueDate
-
 if __name__ == '__main__':
-	# port = int(os.environ.get("PORT", 5000))
+	port = int(os.environ.get("PORT", 5000))
 	app.debug = True
-	# app.run(host='0.0.0.0', port = port)
-	app.run(host = os.environ['OPENSHIFT_PYTHON_IP'], port = int(os.environ['OPENSHIFT_PYTHON_PORT']))
+	app.run(host='0.0.0.0', port = port)
 
