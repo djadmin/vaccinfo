@@ -2,4 +2,4 @@ flask
 pymongo
 json
 datetime
-gunicorn
+gunicorn==19.0.0

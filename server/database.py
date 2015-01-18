@@ -1,7 +1,8 @@
 from pymongo import MongoClient
 import json, datetime
 
-client = MongoClient()
+client = MongoClient("mongodb://dheeraj:Testing123@ds031601.mongolab.com:31601/vaccinfo")
+# client = MongoClient()
 
 db = client['vaccinfo']
 schedule = db['schedule']
@@ -47,7 +48,8 @@ def getInfo(phone):
 	query = {"phone": phone}
 	projection = {"dob": 1, "_id": 0}
 	cursor = users.find_one(query, projection) #@TODO : Check for more than one entry
-	if cursor["dob"]:
+	if cursor and cursor["dob"]:
+		print cursor
 		dob = datetime.datetime.strptime(cursor["dob"], '%d%m%Y')
 		return str(cursor["dob"])
 	return False
