@@ -5,5 +5,5 @@ setup(name='ws',
     author='me',
     author_email='me@gmail.com',
     url='http://www.python.org/sigs/distutils-sig/',  
-    install_requires=['Flask','flask-wtf','flask-babel','markdown','flup'],
+    install_requires=['Flask','flask-wtf','flask-babel','markdown','flup', 'pymongo'],
 )
